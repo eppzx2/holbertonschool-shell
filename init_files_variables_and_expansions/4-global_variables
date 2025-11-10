@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(export HBTN=89 ; printenv)
+echo $(printenv)
