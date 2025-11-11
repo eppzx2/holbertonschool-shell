@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#this until loop is 10 times
+c=1
+until [ $c -gt 10 ]
+do
+	echo "Best School"
+	((c++))
+done
