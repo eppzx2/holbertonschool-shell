@@ -2,21 +2,26 @@
 #this script displays unlucky numbers in some countries
 
 
-c=1
-while [ $c -le 20 ]
+num=1
+while [ $num -le 20 ]
 do
-	if [ $c -eq 4 ]
-	then
-		echo $c; echo "bad luck from China"
-	elif [ $c -eq 9 ]
-	then
-		echo $c; echo "bad luck from Japan"
-	elif [ $c -eq 17 ]
-	then
-		echo $c; echo "bad luck from Italy"
-	else
-		echo $c
-	fi
-	((c++))
+	case $num in
+        4)
+            echo "$num"
+            echo "bad luck from China"
+            ;;
+        9)
+            echo "$num"
+            echo "bad luck from Japan"
+            ;;
+        17)
+            echo "$num"
+            echo "bad luck from Italy"
+            ;;
+        *)
+            echo "$num"
+            ;;
+    esac
+    ((num++))
 	
 done
