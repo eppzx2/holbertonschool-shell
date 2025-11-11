@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#this script displays unlucky numbers in some countries
+
+
+c=1
+while [ $c -le 20 ]
+do
+	if [ $c -eq 4 ]
+	then
+		echo $c; echo "bad luck from China"
+	elif [ $c -eq 9 ]
+	then
+		echo $c; echo "bad luck from Japan"
+	elif [ $c -eq 17 ]
+	then
+		echo $c; echo "bad luck from Italy"
+	else
+		echo $c
+	fi
+	((c++))
+	
+done
