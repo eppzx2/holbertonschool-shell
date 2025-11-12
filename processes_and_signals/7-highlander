@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+#catching the signal
 trap 'echo "I am invincible!!!"' SIGTERM
 
 while true
