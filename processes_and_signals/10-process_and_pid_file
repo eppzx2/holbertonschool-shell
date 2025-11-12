@@ -1,34 +1,32 @@
 #!/usr/bin/env bash
-#a lot of processes
+# a lot of work
 
-echo $$ > /var/run/myscript.pid
-
-
-term_handler() {
+SCRIPT_PATH="/home/student_jail/10-process_and_pid_file"
+PID_FILE="/var/run/myscript.pid"
+su - student_jail -c "$SCRIPT_PATH" &
+echo $! > "$PID_FILE"
+handle_sigterm() {
     echo "I hate the kill command"
-    rm -f /var/run/myscript.pid
-    exit 0
+    cleanup_and_exit
 }
 
-
-int_handler() {
+handle_sigint() {
     echo "Y U no love me?!"
 }
-
-
-quit_handler() {
-    echo "Cleaning up and quitting..."
-    rm -f /var/run/myscript.pid
-    exit 0
+handle_sigquit() {
+    cleanup_and_exit
 }
 
-
-trap term_handler SIGTERM
-trap int_handler SIGINT
-trap quit_handler SIGQUIT
+cleanup_and_exit() {
+    sudo rm -f "$PID_FILE"
+    exit 0
+}
+trap handle_sigterm SIGTERM
+trap handle_sigint SIGINT
+trap handle_sigquit SIGQUIT
 
 
 while true; do
     echo "To infinity and beyond"
-    sleep 2
+    sleep 1
 done
