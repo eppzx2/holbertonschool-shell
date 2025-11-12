@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#easy bash pid
+
+for pid in /proc/[0-9]*; do
+    
+    pid_num=$(basename "$pid")
+    
+    
+    if [ -r "$pid/comm" ]; then
+        pname=$(cat "$pid/comm")
+        
+        
+        if [[ "$pname" == *bash* ]]; then
+            echo "$pid_num $pname"
+        fi
+    fi
+done
