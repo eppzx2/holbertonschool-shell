@@ -1,4 +1,4 @@
-#!/usr/bin//env bash
+#!/usr/bin/env bash
 #username, user id, home directory path
 
 while IFS=: read -r username password uid gid gecos home shell; do
