@@ -1,36 +1,11 @@
 #!/usr/bin/env bash
-# a lot of work
-
-PID_FILE="/var/run/myscript.pid"
-
-# Function to clean up and exit
-cleanup() {
-    rm -f "$PID_FILE"
-    exit 0
-}
-
-# Function to handle SIGTERM
-term_handler() {
-    echo "I hate the kill command"
-    cleanup
-}
-
-# Function to handle SIGINT
-int_handler() {
-    echo "Y U no love me?!"
-}
-
-# Create PID file with current process ID
-sudo bash -c "echo $ > $PID_FILE"
-
-# Set up signal handlers
-trap 'int_handler' SIGINT
-trap 'term_handler' SIGTERM
-trap 'cleanup' SIGQUIT
-
-# Infinite loop
-while true
-do
-    echo "To infinity and beyond"
-    sleep 2
+#a lot of work
+PID="/var/run/myscript.pid"
+echo "$$" | sudo tee "$PID" > /dev/null
+trap 'echo "I hate the kill command"' SIGTERM
+trap 'echo "Y U no love me?!"' SIGINT
+trap 'rm -f "$PID"; exit' SIGQUIT
+while true; do
+  echo "To infinity and beyond"
+  sleep 2
 done
