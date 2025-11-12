@@ -2,5 +2,6 @@
 #username, user id, home directory path
 
 while IFS=: read -r username password uid gid gecos home shell; do
-    echo "Username: $username, UID: $uid, Home: $home"
+    echo "$username:$uid:$home"
 done < /etc/passwd
+~                     
