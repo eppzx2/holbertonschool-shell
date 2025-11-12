@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 #pause
 
-pkill -f 4-to_infinity_and_beyond
+ps -eo pid,cmd | grep 4-to_infinity_and_beyond | grep -v grep | awk {print } | while read -r pid; do
+    # Stop the process by sending a SIGTERM through /proc
+    echo "Stopping process $pid"
+    echo "$pid" > /proc/"$pid"/fd/1 2>/proc/"$pid"/fd/2
+done
