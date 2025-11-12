@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#qoment
+
+PID_FILE="/var/run/my_process.pid"
+PROCESS="/path/to/manage_my_process"  # <-- Replace with full path
+
+case "$1" in
+    start)
+        $PROCESS &
+        echo $! > "$PID_FILE"
+        echo "manage_my_process started"
+        ;;
+    stop)
+        if [ -f "$PID_FILE" ]; then
+            pid=$(cat "$PID_FILE")
+            kill "$pid" 2>/dev/null
+            rm -f "$PID_FILE"
+            echo "manage_my_process stopped"
+        fi
+        ;;
+    restart)
+        if [ -f "$PID_FILE" ]; then
+            pid=$(cat "$PID_FILE")
+            kill "$pid" 2>/dev/null
+            rm -f "$PID_FILE"
+        fi
+        $PROCESS &
+        echo $! > "$PID_FILE"
+        echo "manage_my_process restarted"
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        exit 1
+        ;;
+esac
